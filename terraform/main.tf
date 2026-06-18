@@ -205,8 +205,8 @@ resource "aws_iam_instance_profile" "ai_profile" {
 }
 
 resource "aws_instance" "gpu_node" {
-  ami                    = data.aws_ami.deep_learning.id
-  instance_type          = "g4dn.xlarge" 
+  ami                    = data.aws_ami.ubuntu.id  # CPU fallback: dung Ubuntu thay Deep Learning AMI
+  instance_type          = "r5.xlarge" # CPU fallback (4 vCPU, 32GB) - fit trong limit 8 vCPU
   subnet_id              = aws_subnet.private[0].id
   vpc_security_group_ids = [aws_security_group.gpu_sg.id]
   key_name               = aws_key_pair.lab_key.key_name
